@@ -1,11 +1,11 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Opportunity Solution Tree — Session to FBRS = 0.52%</title>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Opportunity Solution Tree, Session to FBRS = 0.52%</title>
 <style>
-  :root {
+  :root{
     --bg: #F0EDE3;
     --paper: #FFFFFF;
     --ink: #0E181E;
@@ -14,643 +14,419 @@
     --yellow: #FFD078;
     --orange: #DCA32A;
     --lilac: #C3B1F9;
-    --cream-yellow: #FFF5E6;
+    --cream-gap: #FFF5E6;
   }
-  * { box-sizing: border-box; }
-  html, body {
-    margin: 0;
-    padding: 0;
-    background: var(--bg);
-    color: var(--ink);
-    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-    font-size: 14px;
-    line-height: 1.45;
+  *{box-sizing:border-box}
+  html,body{margin:0;padding:0;background:var(--bg);color:var(--ink);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;}
+  body{padding:32px 28px 64px;line-height:1.45;}
+  .wrap{max-width:1400px;margin:0 auto;}
+  .eyebrow{font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:#5a6470;font-weight:600;margin-bottom:8px;}
+  h1{font-size:32px;margin:0 0 8px;letter-spacing:-.01em;}
+  .meta{font-size:13px;color:#3a4450;margin-bottom:22px;}
+  .meta strong{color:var(--ink);}
+  .outcome{
+    background:var(--ink);color:#fff;border-radius:14px;padding:18px 22px;margin:0 0 16px;
+    display:flex;flex-direction:column;gap:6px;
   }
-  .page {
-    max-width: 1440px;
-    margin: 0 auto;
-    padding: 32px 28px 64px;
+  .outcome .label{font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:#FFD078;font-weight:700;}
+  .outcome .big{font-size:20px;font-weight:600;}
+  .outcome .sub{font-size:13px;color:#cdd3da;}
+  .formula{
+    background:var(--paper);border:1px solid #e3e0d4;border-radius:10px;
+    padding:14px 18px;font-family:"SFMono-Regular",Menlo,Consolas,monospace;
+    font-size:13px;margin-bottom:16px;overflow-x:auto;white-space:nowrap;
   }
-  header.top {
-    margin-bottom: 24px;
+  .legend{display:flex;flex-wrap:wrap;gap:14px;margin-bottom:24px;font-size:12px;color:#3a4450;}
+  .legend .item{display:flex;align-items:center;gap:6px;}
+  .swatch{width:14px;height:14px;border-radius:3px;display:inline-block;}
+  .sw-b1{background:var(--bright-blue);}
+  .sw-b2{background:var(--lilac);}
+  .sw-b3{background:var(--yellow);}
+  .sw-gap{background:var(--cream-gap);border:1px dashed var(--orange);}
+  .sw-lever{background:var(--ink);}
+
+  .grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;}
+  .branch{background:var(--paper);border-radius:14px;overflow:hidden;border:1px solid #e3e0d4;display:flex;flex-direction:column;}
+  .branch .head{padding:16px 18px;display:flex;flex-direction:column;gap:4px;}
+  .branch .pill{font-size:11px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;background:var(--ink);color:#fff;display:inline-block;padding:3px 8px;border-radius:6px;align-self:flex-start;}
+  .branch h2{font-size:17px;margin:6px 0 2px;}
+  .branch .stage{font-size:12px;color:#3a4450;}
+  .branch .target{font-size:12px;color:#3a4450;}
+  .b1 .head{background:var(--bright-blue);}
+  .b2 .head{background:var(--lilac);}
+  .b3 .head{background:var(--yellow);}
+  .body{padding:14px;display:flex;flex-direction:column;gap:10px;}
+  .subhead{font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:#5a6470;font-weight:700;margin:6px 2px 2px;}
+  .opp{
+    background:#FAF8F1;border:1px solid #ece8da;border-radius:10px;
+    padding:11px 12px;display:flex;flex-direction:column;gap:6px;
   }
-  .eyebrow {
-    font-size: 11px;
-    font-weight: 700;
-    letter-spacing: 0.12em;
-    text-transform: uppercase;
-    color: var(--ink);
-    opacity: 0.55;
-    margin-bottom: 6px;
+  .opp.gap{background:var(--cream-gap);border:1px dashed var(--orange);}
+  .opp.lever{background:var(--ink);color:#fff;border:1px solid #000;}
+  .opp.lever .quote{color:#e2e6eb;}
+  .opp.lever .id{color:#FFD078;}
+  .opp.lever .projects a{color:#C4D8FC;}
+  .opp .id{font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:#5a6470;font-weight:700;}
+  .tagrow{display:flex;flex-wrap:wrap;gap:6px;}
+  .tag{font-size:10px;letter-spacing:.08em;text-transform:uppercase;font-weight:700;padding:2px 7px;border-radius:5px;}
+  .tag.gap-tag{background:var(--orange);color:#fff;}
+  .tag.lever-tag{background:#FFD078;color:#0E181E;}
+  .opp .title{font-size:13px;font-weight:700;line-height:1.3;}
+  .opp .quote{font-size:12px;font-style:italic;color:#3a4450;line-height:1.4;}
+  .projects{margin:2px 0 0;padding:0;list-style:none;display:flex;flex-direction:column;gap:3px;}
+  .projects li{font-size:12px;line-height:1.35;}
+  .projects li::before{content:"\2192";margin-right:6px;color:#7c8794;}
+  .projects a{color:#1d4ed8;text-decoration:none;border-bottom:1px solid transparent;}
+  .projects a:hover{border-bottom-color:#1d4ed8;}
+  .projects li.noproj{color:#5a6470;font-style:italic;}
+
+  .section{margin-top:24px;}
+  .section h3{font-size:14px;letter-spacing:.12em;text-transform:uppercase;color:#3a4450;margin:0 0 10px;}
+  .questions{
+    background:transparent;border:1px dashed var(--blue);border-radius:12px;padding:16px 18px;
   }
-  h1.title {
-    font-size: 30px;
-    font-weight: 800;
-    margin: 0 0 10px;
-    letter-spacing: -0.01em;
+  .questions ol{margin:0;padding-left:20px;}
+  .questions li{margin-bottom:8px;font-size:13px;line-height:1.5;}
+  .killed{
+    background:transparent;border:1px dashed #c9c4b6;border-radius:12px;padding:16px 18px;
   }
-  .meta {
-    font-size: 13px;
-    color: var(--ink);
-    opacity: 0.75;
-  }
-  .meta strong { font-weight: 700; }
-  .outcome-card {
-    background: var(--ink);
-    color: var(--paper);
-    border-radius: 14px;
-    padding: 18px 22px;
-    margin: 20px 0 16px;
-    display: flex;
-    flex-wrap: wrap;
-    gap: 18px 32px;
-    align-items: center;
-    justify-content: space-between;
-  }
-  .outcome-card .label {
-    font-size: 11px;
-    font-weight: 700;
-    letter-spacing: 0.12em;
-    text-transform: uppercase;
-    opacity: 0.6;
-    margin-bottom: 4px;
-  }
-  .outcome-card .value {
-    font-size: 18px;
-    font-weight: 700;
-  }
-  .outcome-card .value.big {
-    font-size: 22px;
-  }
-  .formula {
-    background: var(--paper);
-    border: 1px solid rgba(14,24,30,0.08);
-    border-radius: 12px;
-    padding: 14px 18px;
-    font-family: "SFMono-Regular", Menlo, Consolas, monospace;
-    font-size: 13px;
-    margin-bottom: 18px;
-    overflow-x: auto;
-    white-space: nowrap;
-  }
-  .legend {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 14px 22px;
-    align-items: center;
-    margin-bottom: 24px;
-    font-size: 12px;
-    color: var(--ink);
-    opacity: 0.85;
-  }
-  .legend-item {
-    display: inline-flex;
-    align-items: center;
-    gap: 8px;
-  }
-  .legend-swatch {
-    width: 16px;
-    height: 16px;
-    border-radius: 4px;
-    border: 1px solid rgba(14,24,30,0.15);
-    display: inline-block;
-  }
-  .legend-swatch.dashed-orange {
-    background: var(--cream-yellow);
-    border: 1.5px dashed var(--orange);
-  }
-  .legend-swatch.dark-lever {
-    background: var(--ink);
-    border: 1px solid var(--ink);
-    position: relative;
-  }
-  .grid {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 18px;
-  }
-  @media (max-width: 1024px) {
-    .grid { grid-template-columns: 1fr; }
-  }
-  .branch {
-    background: var(--paper);
-    border-radius: 16px;
-    overflow: hidden;
-    border: 1px solid rgba(14,24,30,0.08);
-    display: flex;
-    flex-direction: column;
-  }
-  .branch-header {
-    padding: 16px 18px;
-    display: flex;
-    flex-direction: column;
-    gap: 6px;
-  }
-  .branch-header.b1 { background: var(--bright-blue); }
-  .branch-header.b2 { background: var(--lilac); }
-  .branch-header.b3 { background: var(--yellow); }
-  .branch-pill {
-    display: inline-flex;
-    align-items: center;
-    gap: 8px;
-    font-size: 11px;
-    font-weight: 800;
-    letter-spacing: 0.1em;
-    text-transform: uppercase;
-  }
-  .branch-num {
-    background: var(--ink);
-    color: var(--paper);
-    border-radius: 999px;
-    padding: 2px 8px;
-    font-weight: 800;
-    font-size: 11px;
-  }
-  .branch-name {
-    font-size: 17px;
-    font-weight: 800;
-    margin: 0;
-  }
-  .branch-meta {
-    font-size: 12px;
-    color: var(--ink);
-    opacity: 0.78;
-  }
-  .branch-body {
-    padding: 14px;
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-    background: var(--paper);
-  }
-  .subsection-label {
-    font-size: 11px;
-    font-weight: 800;
-    letter-spacing: 0.1em;
-    text-transform: uppercase;
-    color: var(--ink);
-    opacity: 0.6;
-    margin: 8px 2px 2px;
-    border-top: 1px dashed rgba(14,24,30,0.18);
-    padding-top: 10px;
-  }
-  .subsection-label:first-child {
-    margin-top: 0;
-    border-top: none;
-    padding-top: 0;
-  }
-  .opp {
-    background: var(--paper);
-    border: 1px solid rgba(14,24,30,0.1);
-    border-radius: 10px;
-    padding: 12px 13px;
-  }
-  .opp.no-project {
-    background: var(--cream-yellow);
-    border: 1.5px dashed var(--orange);
-  }
-  .opp-id {
-    font-size: 10px;
-    font-weight: 800;
-    letter-spacing: 0.12em;
-    text-transform: uppercase;
-    color: var(--ink);
-    opacity: 0.55;
-  }
-  .tag-row {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 6px;
-    margin: 4px 0 4px;
-  }
-  .gap-tag {
-    background: var(--orange);
-    color: var(--ink);
-    font-size: 10px;
-    font-weight: 800;
-    letter-spacing: 0.06em;
-    text-transform: uppercase;
-    padding: 2px 7px;
-    border-radius: 999px;
-  }
-  .lever-tag {
-    background: var(--ink);
-    color: var(--yellow);
-    font-size: 10px;
-    font-weight: 800;
-    letter-spacing: 0.06em;
-    text-transform: uppercase;
-    padding: 2px 7px;
-    border-radius: 999px;
-  }
-  .opp-title {
-    font-size: 13px;
-    font-weight: 700;
-    margin: 3px 0 4px;
-    line-height: 1.35;
-  }
-  .opp-quote {
-    font-size: 12px;
-    font-style: italic;
-    color: var(--ink);
-    opacity: 0.78;
-    margin: 0 0 8px;
-    line-height: 1.4;
-  }
-  .opp ul {
-    margin: 0;
-    padding: 0;
-    list-style: none;
-    display: flex;
-    flex-direction: column;
-    gap: 4px;
-  }
-  .opp ul li {
-    font-size: 12px;
-    color: var(--ink);
-  }
-  .opp ul li::before {
-    content: "→ ";
-    color: var(--blue);
-    font-weight: 700;
-  }
-  .opp a {
-    color: var(--ink);
-    text-decoration: underline;
-    text-decoration-color: rgba(14,24,30,0.3);
-    text-underline-offset: 2px;
-  }
-  .opp a:hover {
-    text-decoration-color: var(--blue);
-  }
-  .extras {
-    margin-top: 28px;
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 18px;
-  }
-  @media (max-width: 1024px) {
-    .extras { grid-template-columns: 1fr; }
-  }
-  .extras-box {
-    border-radius: 14px;
-    padding: 16px 18px;
-  }
-  .extras-box.strategic {
-    background: rgba(196,216,252,0.35);
-    border: 1.5px dashed var(--blue);
-  }
-  .extras-box.killed {
-    background: var(--paper);
-    border: 1.5px dashed rgba(14,24,30,0.3);
-  }
-  .extras-title {
-    font-size: 12px;
-    font-weight: 800;
-    letter-spacing: 0.1em;
-    text-transform: uppercase;
-    margin-bottom: 10px;
-    color: var(--ink);
-    opacity: 0.8;
-  }
-  .extras-box ul {
-    margin: 0;
-    padding-left: 18px;
-    display: flex;
-    flex-direction: column;
-    gap: 6px;
-  }
-  .extras-box li {
-    font-size: 12px;
-    line-height: 1.45;
-  }
-  footer.bottom {
-    margin-top: 32px;
-    font-size: 12px;
-    color: var(--ink);
-    opacity: 0.6;
-    text-align: center;
-  }
-  footer.bottom a {
-    color: var(--ink);
-    text-decoration: underline;
+  .killed ul{margin:0;padding-left:20px;}
+  .killed li{font-size:13px;line-height:1.5;margin-bottom:6px;color:#3a4450;}
+
+  footer{margin-top:32px;font-size:12px;color:#5a6470;text-align:center;}
+  footer a{color:#1d4ed8;text-decoration:none;}
+
+  @media (max-width: 1100px){
+    .grid{grid-template-columns:1fr;}
   }
 </style>
 </head>
 <body>
-  <div class="page">
-    <header class="top">
-      <div class="eyebrow">Opportunity Solution Tree</div>
-      <h1 class="title">Session → FBRS = 0.52%</h1>
-      <div class="meta">Owner: <strong>Nils Alm</strong> · Target: <strong>2026-06-30</strong> · KR: lift Session to first-booking-request-sent from ~0.43% to 0.52%</div>
+<div class="wrap">
+  <div class="eyebrow">Opportunity Solution Tree</div>
+  <h1>Session to FBRS = 0.52%</h1>
+  <div class="meta">
+    Owner: <strong>Nils Alm</strong> &nbsp;&middot;&nbsp;
+    Target date: <strong>2026-06-30</strong> &nbsp;&middot;&nbsp;
+    KR: <strong>Session to first-booking-request-sent, ~0.43% to 0.52%</strong> &nbsp;&middot;&nbsp;
+    Status: <strong>Active, at risk</strong>
+  </div>
 
-      <div class="outcome-card">
-        <div>
-          <div class="label">Outcome</div>
-          <div class="value big">Session → FBRS = 0.52% by 2026-06-30</div>
-        </div>
-        <div>
-          <div class="label">Status</div>
-          <div class="value">Active · At risk</div>
-        </div>
+  <div class="outcome">
+    <div class="label">Outcome</div>
+    <div class="big">Lift Session to FBRS from ~0.43% to 0.52% by 2026-06-30.</div>
+    <div class="sub">Product Team KR. Three multiplicative gaps decompose into the three branches below.</div>
+  </div>
+
+  <div class="formula">
+    Sessions &rarr; VDP (~48%)  &times;  VDP &rarr; ATC (~5%)  &times;  ATC &rarr; FBRS (~17% first-timer, ~25% overall)  =  ~0.5%
+  </div>
+
+  <div class="legend">
+    <div class="item"><span class="swatch sw-b1"></span> Branch 1, Vehicle discovery</div>
+    <div class="item"><span class="swatch sw-b2"></span> Branch 2, Vehicle selection</div>
+    <div class="item"><span class="swatch sw-b3"></span> Branch 3, Booking flow</div>
+    <div class="item"><span class="swatch sw-gap"></span> No project yet</div>
+    <div class="item"><span class="swatch sw-lever"></span> Biggest project-less lever</div>
+  </div>
+
+  <div class="grid">
+
+    <!-- BRANCH 1 -->
+    <div class="branch b1">
+      <div class="head">
+        <span class="pill">Branch 1</span>
+        <h2>Vehicle discovery</h2>
+        <div class="stage">Funnel stage: Session &rarr; VDP</div>
+        <div class="target">Target: sustain ~48%, lift VDP&rarr;ATC indirectly via better intent</div>
       </div>
+      <div class="body">
 
-      <div class="formula">Sessions → VDP (~48%) × VDP → ATC (~5%) × ATC → FBRS (~17% first-timer / ~25% overall) ≈ ~0.5%</div>
+        <div class="opp">
+          <div class="id">Opportunity 1.1</div>
+          <div class="title">"I can't tell from search whether a vehicle has the things I need"</div>
+          <div class="quote">Renters can't filter on add-ons, equipment, or rules, so they enter the booking flow just to inspect. Pollutes ATC, burns user effort.</div>
+          <ul class="projects">
+            <li><a href="https://linear.app/mycamper/project/search-filters-34c11355961f">Search filters, add-on/equipment/rules</a></li>
+          </ul>
+        </div>
 
-      <div class="legend">
-        <div class="legend-item"><span class="legend-swatch" style="background: var(--bright-blue);"></span>Branch 1, Vehicle discovery</div>
-        <div class="legend-item"><span class="legend-swatch" style="background: var(--lilac);"></span>Branch 2, Vehicle selection</div>
-        <div class="legend-item"><span class="legend-swatch" style="background: var(--yellow);"></span>Branch 3, Booking flow</div>
-        <div class="legend-item"><span class="legend-swatch dashed-orange"></span>No project yet</div>
-        <div class="legend-item"><span class="legend-swatch dark-lever"></span>Biggest lever</div>
+        <div class="opp">
+          <div class="id">Opportunity 1.2</div>
+          <div class="title">"Where vehicles are picked up matters more than I can see in the list"</div>
+          <div class="quote">Inspired by Yescapa, maybe pickup location is a stronger filter than we treat it as.</div>
+          <ul class="projects">
+            <li><a href="https://linear.app/mycamper/project/search-map-4cfe3f10d7bd">Search map, map-first results</a></li>
+          </ul>
+        </div>
+
+        <div class="opp">
+          <div class="id">Opportunity 1.3</div>
+          <div class="title">"The marketplace feels generic, listings don't stand out"</div>
+          <div class="quote">Listings blur together; nothing communicates that vehicles are real, distinctive, and currently active.</div>
+          <ul class="projects">
+            <li><a href="https://linear.app/mycamper/project/vehicle-personalisation-name-92e08f65d832">Vehicle personalisation / name</a></li>
+          </ul>
+        </div>
+
+        <div class="opp gap">
+          <div class="id">Opportunity 1.4</div>
+          <div class="tagrow"><span class="tag gap-tag">No project yet</span></div>
+          <div class="title">"My request got declined and now I have to start over"</div>
+          <div class="quote">Post-decline emails and in-product fallback drop renters into a generic search with no preserved context. Bad emotional moment, foregone subsequent FBRS. Shares intent-preservation problem with 1.5 and 2.4.</div>
+          <ul class="projects"><li class="noproj">Candidate for triage</li></ul>
+        </div>
+
+        <div class="opp gap">
+          <div class="id">Opportunity 1.5</div>
+          <div class="tagrow"><span class="tag gap-tag">No project yet</span></div>
+          <div class="title">"I came back to keep looking and lost my place"</div>
+          <div class="quote">Returning renters restart from an empty search. Guest state isn't persisted; even logged-in users start over. Likely meaningful slice of the 169k single-VDP sessions at 1.38% Session &rarr; ATC.</div>
+          <ul class="projects"><li class="noproj">Candidate for triage</li></ul>
+        </div>
+
+        <div class="opp gap">
+          <div class="id">Opportunity 1.6</div>
+          <div class="tagrow"><span class="tag gap-tag">No project yet</span></div>
+          <div class="title">"I sent an unsuccessful booking request and came back and can't find the other vehicles I liked"</div>
+          <div class="quote">Current favorites/wishlist functionality is hidden and not very accessible. Make it a more prominent surface.</div>
+          <ul class="projects"><li class="noproj">Candidate for triage</li></ul>
+        </div>
+
+        <div class="opp gap">
+          <div class="id">Opportunity 1.7</div>
+          <div class="tagrow"><span class="tag gap-tag">No project yet</span></div>
+          <div class="title">"I'm planning different trips and I want to save vehicles to different favorite lists to keep my search focused"</div>
+          <div class="quote">Vehicles differ in availability, fit, and location, so different trips require different favorite lists.</div>
+          <ul class="projects"><li class="noproj">Candidate for triage</li></ul>
+        </div>
+
       </div>
-    </header>
+    </div>
 
-    <main class="grid">
-
-      <!-- BRANCH 1 -->
-      <section class="branch">
-        <div class="branch-header b1">
-          <div class="branch-pill"><span class="branch-num">1</span> Branch</div>
-          <h2 class="branch-name">Vehicle discovery</h2>
-          <div class="branch-meta">Session → VDP · Sustain ~48%; lift VDP→ATC indirectly via better intent</div>
-        </div>
-        <div class="branch-body">
-
-          <div class="opp">
-            <div class="opp-id">Opp 1.1</div>
-            <div class="opp-title">I can't tell from search whether a vehicle has the things I need</div>
-            <p class="opp-quote">Renters can't filter on add-ons, equipment, or rules, so they enter the booking flow just to inspect. Pollutes ATC and burns user effort.</p>
-            <ul>
-              <li><a href="https://linear.app/mycamper/project/search-filters-34c11355961f" target="_blank" rel="noopener">Search filters</a></li>
-            </ul>
-          </div>
-
-          <div class="opp">
-            <div class="opp-id">Opp 1.2</div>
-            <div class="opp-title">Where vehicles are picked up matters more than I can see in the list</div>
-            <p class="opp-quote">Inspired by Yescapa: maybe pickup location is a stronger filter than we treat it as.</p>
-            <ul>
-              <li><a href="https://linear.app/mycamper/project/search-map-4cfe3f10d7bd" target="_blank" rel="noopener">Search map</a></li>
-            </ul>
-          </div>
-
-          <div class="opp">
-            <div class="opp-id">Opp 1.3</div>
-            <div class="opp-title">The marketplace feels generic, listings don't stand out</div>
-            <p class="opp-quote">Listings blur together; nothing communicates that vehicles are real, distinctive, and currently active.</p>
-            <ul>
-              <li><a href="https://linear.app/mycamper/project/vehicle-personalisation-name-92e08f65d832" target="_blank" rel="noopener">Vehicle personalisation / name</a></li>
-            </ul>
-          </div>
-
-          <div class="opp no-project">
-            <div class="opp-id">Opp 1.4</div>
-            <div class="tag-row"><span class="gap-tag">No project yet</span></div>
-            <div class="opp-title">My request got declined and now I have to start over</div>
-            <p class="opp-quote">Post-decline emails and in-product fallbacks send the renter into a generic search with no preserved context. Most renters need multiple requests; every decline that doesn't loop back is a foregone subsequent FBRS.</p>
-          </div>
-
-          <div class="opp no-project">
-            <div class="opp-id">Opp 1.5</div>
-            <div class="tag-row"><span class="gap-tag">No project yet</span></div>
-            <div class="opp-title">I came back to keep looking and lost my place</div>
-            <p class="opp-quote">Returning renters restart from an empty search. Guest state isn't persisted; even logged-in users start over. Likely a meaningful slice of the 169k single-VDP sessions at 1.38% Session→ATC.</p>
-          </div>
-
-          <div class="opp no-project">
-            <div class="opp-id">Opp 1.6</div>
-            <div class="tag-row"><span class="gap-tag">No project yet</span></div>
-            <div class="opp-title">I sent an unsuccessful booking request and came back and can't find the other vehicles I liked</div>
-            <p class="opp-quote">The current favorites/wishlist functionality is hidden and not very accessible. Make it a more prominent part of the experience.</p>
-          </div>
-
-          <div class="opp no-project">
-            <div class="opp-id">Opp 1.7</div>
-            <div class="tag-row"><span class="gap-tag">No project yet</span></div>
-            <div class="opp-title">I'm planning different trips and want to save vehicles to different favorite lists</div>
-            <p class="opp-quote">Vehicles differ in availability and fit; different trips happen at different locations, so different trips require different favorite lists.</p>
-          </div>
-
-        </div>
-      </section>
-
-      <!-- BRANCH 2 -->
-      <section class="branch">
-        <div class="branch-header b2">
-          <div class="branch-pill"><span class="branch-num">2</span> Branch</div>
-          <h2 class="branch-name">Vehicle selection</h2>
-          <div class="branch-meta">VDP → ATC · +1 to 2pp absolute (5% → 6 to 7%)</div>
-        </div>
-        <div class="branch-body">
-
-          <div class="opp">
-            <div class="opp-id">Opp 2.1</div>
-            <div class="opp-title">I don't know what booking actually involves before I commit</div>
-            <p class="opp-quote">First-timers convert at 17% vs 24% overall. The VDP sells the vehicle but says nothing about the P2P process. Clicking "Start booking" is a leap into the unknown.</p>
-            <ul>
-              <li><a href="https://linear.app/mycamper/project/timeline-for-booking-on-vdp-c82c021000a4" target="_blank" rel="noopener">Timeline for booking on VDP</a></li>
-            </ul>
-          </div>
-
-          <div class="opp">
-            <div class="opp-id">Opp 2.2</div>
-            <div class="opp-title">I can't tell if other people trust this owner / vehicle</div>
-            <p class="opp-quote">Reviews are flat (single star, no context). Renters lack social proof to reduce hesitation.</p>
-            <ul>
-              <li><a href="https://linear.app/mycamper/project/rich-reviews-7a0582bfa134" target="_blank" rel="noopener">Rich reviews</a></li>
-              <li><a href="https://linear.app/mycamper/project/social-proof-b529879c249e" target="_blank" rel="noopener">Social proof</a></li>
-            </ul>
-          </div>
-
-          <div class="opp">
-            <div class="opp-id">Opp 2.3</div>
-            <div class="opp-title">I can't see total price on mobile without entering the booking flow</div>
-            <p class="opp-quote">Mobile users can't see cost overview unless they ATC. The button asks too much for too little visible value.</p>
-            <ul>
-              <li><a href="https://linear.app/mycamper/project/unify-atc-button-on-desktop-and-mobile-80b566e5bb06" target="_blank" rel="noopener">Unify ATC button on desktop and mobile</a></li>
-            </ul>
-          </div>
-
-          <div class="opp" style="background: var(--ink); color: var(--paper); border-color: var(--ink);">
-            <div class="opp-id" style="color: var(--yellow); opacity: 1;">Opp 2.4</div>
-            <div class="tag-row"><span class="lever-tag">Biggest lever</span></div>
-            <div class="opp-title" style="color: var(--paper);">This vehicle isn't quite it, and I don't see anywhere to go from here</div>
-            <p class="opp-quote" style="color: var(--bright-blue); opacity: 1;">~102k sessions land on a non-matching VDP and bounce. Turn non-fitting landings into a path to fitting ones without making the user start over. Sized at 50 to 140% of the KR gap.</p>
-            <ul style="color: var(--paper);">
-              <li style="color: var(--paper);"><a href="https://linear.app/mycamper/project/filter-recommendations-on-vdp-01d377c2c80c" target="_blank" rel="noopener" style="color: var(--paper); text-decoration-color: var(--bright-blue);">Filter recommendations on VDP</a></li>
-              <li style="color: var(--paper);"><a href="https://linear.app/mycamper/project/arrow-navigation-to-next-vdp-de9c5daf228a" target="_blank" rel="noopener" style="color: var(--paper); text-decoration-color: var(--bright-blue);">Arrow navigation to next VDP</a></li>
-              <li style="color: var(--paper);">AI assistant to suggest three options getting feedback</li>
-            </ul>
-          </div>
-
-          <div class="opp no-project">
-            <div class="opp-id">Opp 2.5</div>
-            <div class="tag-row"><span class="gap-tag">No project yet</span></div>
-            <div class="opp-title">Is this vehicle the right one?</div>
-            <p class="opp-quote">More info: bedding setup, clearer add-ons, better gallery (no per-image scrolling), gas consumption and carbon footprint.</p>
-          </div>
-
-          <div class="opp no-project">
-            <div class="opp-id">Opp 2.6</div>
-            <div class="tag-row"><span class="gap-tag">No project yet</span></div>
-            <div class="opp-title">I want to compare vehicles</div>
-            <p class="opp-quote">Overlap with favorites/wishlist (Opp 1.6). Comparison may live as a feature on top of a more accessible favorites surface rather than a standalone view.</p>
-          </div>
-
-          <div class="opp no-project">
-            <div class="opp-id">Opp 2.7</div>
-            <div class="tag-row"><span class="gap-tag">No project yet</span></div>
-            <div class="opp-title">The VDP is a wall of content and I get tired before I reach the signals that convert me</div>
-            <p class="opp-quote">Listing-details block buries trust signals and the CTA. Tabbed sections (Vehicle data, Equipment, Add-ons, Terms, Costs, Cancellation) with all content server-rendered for SEO. Local scoping in hop-os/projects/vdp-tabs.</p>
-          </div>
-
-        </div>
-      </section>
-
-      <!-- BRANCH 3 -->
-      <section class="branch">
-        <div class="branch-header b3">
-          <div class="branch-pill"><span class="branch-num">3</span> Branch</div>
-          <h2 class="branch-name">Booking flow</h2>
-          <div class="branch-meta">ATC → FBRS · First-timer 17% → ~18%; overall 25% → ~26%</div>
-        </div>
-        <div class="branch-body">
-
-          <div class="subsection-label">3a · Empty / low-value steps</div>
-
-          <div class="opp">
-            <div class="opp-id">Opp 3a.1</div>
-            <div class="opp-title">I'm being asked things that don't apply to me</div>
-            <p class="opp-quote">Customize and Insurance steps render even when there's nothing to choose.</p>
-            <ul>
-              <li><a href="https://linear.app/mycamper/project/skip-addons-and-insurance-when-possible-3023221ce425" target="_blank" rel="noopener">Skip addons and insurance when possible</a></li>
-              <li><a href="https://linear.app/mycamper/project/buy-addons-after-booking-872f039e6683" target="_blank" rel="noopener">Buy addons after booking</a></li>
-            </ul>
-          </div>
-
-          <div class="opp">
-            <div class="opp-id">Opp 3a.2</div>
-            <div class="opp-title">The first step of the flow kills me before I've engaged</div>
-            <p class="opp-quote">27% drop on the first step. Hypothesis: position, not content.</p>
-            <ul>
-              <li><a href="https://linear.app/mycamper/project/ab-test-insurance-step-before-addons-49e9b75ce0d7" target="_blank" rel="noopener">A/B test: insurance step before addons</a></li>
-            </ul>
-          </div>
-
-          <div class="subsection-label">3b · Sign-up / login step</div>
-
-          <div class="opp">
-            <div class="opp-id">Opp 3b.1</div>
-            <div class="opp-title">Login feels like a separate task that interrupted my booking</div>
-            <p class="opp-quote">Inline sign-up replaces booking context. Step converts at 68% globally; DACH+INT 65% vs Nordics 78%.</p>
-            <ul>
-              <li><a href="https://linear.app/mycamper/project/sign-uplogin-as-overlay-instead-of-inline-step-a5cc2e9d8f9c" target="_blank" rel="noopener">Sign-up/login as overlay instead of inline step</a></li>
-              <li><a href="https://linear.app/mycamper/project/offer-registration-with-phone-number-7486e06a380d" target="_blank" rel="noopener">Offer registration with phone number</a></li>
-            </ul>
-          </div>
-
-          <div class="subsection-label">3c · About-you step</div>
-
-          <div class="opp">
-            <div class="opp-id">Opp 3c.1</div>
-            <div class="opp-title">Bank ID before I even know if the owner accepts feels excessive</div>
-            <p class="opp-quote">Nordic eID is a pre-booking gate. 44% of SE about-you sessions never start eID. Once started, ~89% complete. The block is cognitive, not technical.</p>
-            <ul>
-              <li><a href="https://linear.app/mycamper/project/move-nordic-eid-verification-to-after-booking-like-onfido-f8bf0ee5f8e0" target="_blank" rel="noopener">Move Nordic eID verification to after booking like Onfido</a></li>
-            </ul>
-          </div>
-
-          <div class="opp">
-            <div class="opp-id">Opp 3c.2</div>
-            <div class="opp-title">I'm filling out the same person twice (or for the wrong person)</div>
-            <p class="opp-quote">Renters are confused by main-driver vs account-holder, and re-fill the same data on every booking attempt.</p>
-            <ul>
-              <li><a href="https://linear.app/mycamper/project/improve-about-you-step-60c1e4dba230" target="_blank" rel="noopener">Improve about-you step</a></li>
-              <li><a href="https://linear.app/mycamper/project/separate-between-main-driver-and-account-on-about-you-c18dec782de6" target="_blank" rel="noopener">Separate between main driver and account on about-you</a></li>
-              <li><a href="https://linear.app/mycamper/project/main-driver-details-and-additional-driver-1ea9039c5d5a" target="_blank" rel="noopener">Main driver details and additional driver</a></li>
-              <li><a href="https://linear.app/mycamper/project/save-dl-to-profile-so-we-about-you-becomes-even-easier-when-booking-6ad8fe91e827" target="_blank" rel="noopener">Save DL to profile</a></li>
-              <li><a href="https://linear.app/mycamper/project/make-the-drivers-license-question-clearer-7c1e22c9d4d0" target="_blank" rel="noopener">Make the Driver's license question clearer</a></li>
-            </ul>
-          </div>
-
-          <div class="opp">
-            <div class="opp-id">Opp 3c.3</div>
-            <div class="opp-title">My country isn't in the list</div>
-            <p class="opp-quote">Renters from 12 EU countries can't select their country of residence. ~50% drop on About-you for international segment.</p>
-            <ul>
-              <li><a href="https://linear.app/mycamper/project/allowlist-all-eu-countries-for-renters-e8b259f224d8" target="_blank" rel="noopener">Allowlist all EU countries for renters</a></li>
-            </ul>
-          </div>
-
-          <div class="subsection-label">3d · Payment step</div>
-
-          <div class="opp">
-            <div class="opp-id">Opp 3d.1</div>
-            <div class="opp-title">I can't see all my payment options</div>
-            <p class="opp-quote">"Pay later" is below the fold. Many users don't notice the option that would have unblocked them.</p>
-            <ul>
-              <li><a href="https://linear.app/mycamper/project/show-all-payment-options-above-the-fold-c8856a432db8" target="_blank" rel="noopener">Show all payment options above the fold</a></li>
-            </ul>
-          </div>
-
-          <div class="opp">
-            <div class="opp-id">Opp 3d.2</div>
-            <div class="opp-title">Payment fails and I don't know why</div>
-            <p class="opp-quote">3D Secure, payment limits, online-purchase locks. We can't know which, but we can prime users.</p>
-            <ul>
-              <li><a href="https://linear.app/mycamper/project/payment-step-many-users-struggle-with-the-payment-9e099d1bba71" target="_blank" rel="noopener">Payment step, many users struggle with the payment</a></li>
-            </ul>
-          </div>
-
-          <div class="opp">
-            <div class="opp-id">Opp 3d.3</div>
-            <div class="opp-title">The cancellation policy makes me anxious right at commit</div>
-            <p class="opp-quote">Near-closed free-cancellation window creates last-second anxiety. Best treated upstream via VDP timeline (Opp 2.1). BDP timeline is post-booking, listed for completeness.</p>
-            <ul>
-              <li><a href="https://linear.app/mycamper/project/timeline-for-booking-in-bdp-c04687f7f390" target="_blank" rel="noopener">Timeline for booking in BDP</a></li>
-            </ul>
-          </div>
-
-          <div class="subsection-label">3e · Catch-alls and infrastructure</div>
-
-          <div class="opp">
-            <div class="opp-id">Opp 3e.1</div>
-            <div class="opp-title">Small fixes and platform foundations</div>
-            <p class="opp-quote">Bucket for small fixes (mandatory-fields markers, double error on birthday) and the feature-flag foundation needed for clean A/B reads.</p>
-            <ul>
-              <li><a href="https://linear.app/mycamper/project/misc-booking-flow-improvements-8081285f186e" target="_blank" rel="noopener">Misc Booking flow improvements</a></li>
-              <li><a href="https://linear.app/mycamper/project/feature-flags-7fd94bc6bdad" target="_blank" rel="noopener">Feature flags</a></li>
-            </ul>
-          </div>
-
-        </div>
-      </section>
-
-    </main>
-
-    <section class="extras">
-      <div class="extras-box strategic">
-        <div class="extras-title">Strategic questions (not yet projects)</div>
-        <ul>
-          <li><strong>What should "Buchungsanfrage" actually be?</strong> Binding booking framed as a "request" is a likely root cause of the 17% first-timer CR. Touches pricing, ops load, owner experience, competitive positioning. No project yet, by design.</li>
-          <li><strong>What does the first-timer booking experience need to look like?</strong> First-timer 17% vs 24% overall, but funnel events don't distinguish first-timers per step. Event tracking is likely the prerequisite.</li>
-        </ul>
+    <!-- BRANCH 2 -->
+    <div class="branch b2">
+      <div class="head">
+        <span class="pill">Branch 2</span>
+        <h2>Vehicle selection</h2>
+        <div class="stage">Funnel stage: VDP &rarr; ATC</div>
+        <div class="target">Target: +1 to 2pp absolute, 5% to 6 to 7%</div>
       </div>
+      <div class="body">
 
-      <div class="extras-box killed">
-        <div class="extras-title">Explicitly killed / out-of-scope</div>
-        <ul>
-          <li><strong>Move "message owner" button next to ATC on VDP.</strong> Rejected. Would push toward a classified model; we want trust through supply quality and instant-book, not message-first.</li>
-          <li><strong>BDP additional driver display confusion.</strong> Post-booking only; users already successful.</li>
-        </ul>
+        <div class="opp">
+          <div class="id">Opportunity 2.1</div>
+          <div class="title">"I don't know what booking actually involves before I commit"</div>
+          <div class="quote">First-timers convert at 17% vs 24% overall. The VDP sells the vehicle but says nothing about the P2P process.</div>
+          <ul class="projects">
+            <li><a href="https://linear.app/mycamper/project/timeline-for-booking-on-vdp-c82c021000a4">Timeline for booking on VDP</a></li>
+          </ul>
+        </div>
+
+        <div class="opp">
+          <div class="id">Opportunity 2.2</div>
+          <div class="title">"I can't tell if other people trust this owner / vehicle"</div>
+          <div class="quote">Reviews are flat (single star, no context). Renters lack social proof to reduce hesitation.</div>
+          <ul class="projects">
+            <li><a href="https://linear.app/mycamper/project/rich-reviews-7a0582bfa134">Rich reviews</a></li>
+            <li><a href="https://linear.app/mycamper/project/social-proof-b529879c249e">Social proof</a></li>
+          </ul>
+        </div>
+
+        <div class="opp">
+          <div class="id">Opportunity 2.3</div>
+          <div class="title">"I can't see total price on mobile without entering the booking flow"</div>
+          <div class="quote">Mobile users can't see cost overview unless they ATC. The button asks too much for too little visible value.</div>
+          <ul class="projects">
+            <li><a href="https://linear.app/mycamper/project/unify-atc-button-on-desktop-and-mobile-80b566e5bb06">Unify ATC button on desktop and mobile</a></li>
+          </ul>
+        </div>
+
+        <div class="opp lever">
+          <div class="id">Opportunity 2.4</div>
+          <div class="tagrow"><span class="tag lever-tag">Biggest lever</span></div>
+          <div class="title">"This vehicle isn't quite it, and I don't see anywhere to go from here"</div>
+          <div class="quote">~102k sessions in 2 months land directly on a non-matching vehicle, then bounce. Sized at 50 to 140% of the KR gap. Shares the intent-preservation problem with 1.4 and 1.5.</div>
+          <ul class="projects">
+            <li><a href="https://linear.app/mycamper/project/filter-recommendations-on-vdp">Filter recommendations on VDP, vehicle recommendations</a></li>
+            <li><a href="https://linear.app/mycamper/project/arrow-navigation-to-next-vdp">Arrow navigation to next VDP</a></li>
+            <li class="noproj">AI assistant to suggest three options getting feedback</li>
+          </ul>
+        </div>
+
+        <div class="opp gap">
+          <div class="id">Opportunity 2.5</div>
+          <div class="tagrow"><span class="tag gap-tag">No project yet</span></div>
+          <div class="title">"Is this vehicle the right one?"</div>
+          <div class="quote">Add more information on bedding setup, add-ons, gallery (no scrolling each image), gas consumption, carbon footprint.</div>
+          <ul class="projects"><li class="noproj">Candidate for triage</li></ul>
+        </div>
+
+        <div class="opp gap">
+          <div class="id">Opportunity 2.6</div>
+          <div class="tagrow"><span class="tag gap-tag">No project yet</span></div>
+          <div class="title">"I want to compare vehicles"</div>
+          <div class="quote">Overlap with favorites/wishlist (Opp 1.6). Comparison may live as a feature on top of a more accessible favorites surface. Flag from product standup 2026-05-07 (Hanna).</div>
+          <ul class="projects"><li class="noproj">Candidate for triage</li></ul>
+        </div>
+
+        <div class="opp gap">
+          <div class="id">Opportunity 2.7</div>
+          <div class="tagrow"><span class="tag gap-tag">No project yet</span></div>
+          <div class="title">"The VDP is a wall of content and I get tired before I reach the signals that convert me"</div>
+          <div class="quote">Middle "Listing details" block pushes trust signals and CTA down. Tabbed sections (Vehicle data, Equipment, Add-ons, etc.) with server-rendered content for SEO. Local scoping: hop-os/projects/vdp-tabs/opportunity.md.</div>
+          <ul class="projects"><li class="noproj">Candidate for triage</li></ul>
+        </div>
+
       </div>
-    </section>
+    </div>
 
-    <footer class="bottom">
-      Source of truth: <a href="https://linear.app/mycamper/initiative/session-to-fbrs-to-052percent-1f69fcd9ec88" target="_blank" rel="noopener">Linear initiative · Session to FBRS to 0.52%</a> · Refreshed daily
-    </footer>
+    <!-- BRANCH 3 -->
+    <div class="branch b3">
+      <div class="head">
+        <span class="pill">Branch 3</span>
+        <h2>Booking flow</h2>
+        <div class="stage">Funnel stage: ATC &rarr; FBRS</div>
+        <div class="target">Target: first-timer 17% to ~18%, overall 25% to ~26%</div>
+      </div>
+      <div class="body">
+
+        <div class="subhead">3a. Empty / low-value steps</div>
+
+        <div class="opp">
+          <div class="id">Opportunity 3a.1</div>
+          <div class="title">"I'm being asked things that don't apply to me"</div>
+          <div class="quote">Customize and Insurance steps render even when there's nothing to choose.</div>
+          <ul class="projects">
+            <li><a href="https://linear.app/mycamper/project/skip-addons-and-insurance-when-possible-3023221ce425">Skip addons and insurance when possible</a></li>
+            <li><a href="https://linear.app/mycamper/project/buy-addons-after-booking-872f039e6683">Buy addons after booking</a></li>
+          </ul>
+        </div>
+
+        <div class="opp">
+          <div class="id">Opportunity 3a.2</div>
+          <div class="title">"The first step of the flow kills me before I've engaged"</div>
+          <div class="quote">27% drop on the first step. Hypothesis: it's the position, not the content.</div>
+          <ul class="projects">
+            <li><a href="https://linear.app/mycamper/project/ab-test-insurance-step-before-addons-49e9b75ce0d7">A/B test, insurance step before addons</a></li>
+          </ul>
+        </div>
+
+        <div class="subhead">3b. Sign-up / login step, worst single dropoff</div>
+
+        <div class="opp">
+          <div class="id">Opportunity 3b.1</div>
+          <div class="title">"Login feels like a separate task that interrupted my booking"</div>
+          <div class="quote">Inline sign-up step replaces booking context. Step converts at 68% globally; DACH+INT 65% vs Nordics 78%.</div>
+          <ul class="projects">
+            <li><a href="https://linear.app/mycamper/project/sign-uplogin-as-overlay-instead-of-inline-step-a5cc2e9d8f9c">Sign-up/login as overlay instead of inline step</a></li>
+            <li><a href="https://linear.app/mycamper/project/offer-registration-with-phone-number-7486e06a380d">Offer registration with phone number</a></li>
+          </ul>
+        </div>
+
+        <div class="subhead">3c. About-you step, Nordic black hole</div>
+
+        <div class="opp">
+          <div class="id">Opportunity 3c.1</div>
+          <div class="title">"Bank ID before I even know if the owner accepts feels excessive"</div>
+          <div class="quote">Nordic eID is a pre-booking gate. 44% of SE about-you sessions never start eID. Block is cognitive, not technical.</div>
+          <ul class="projects">
+            <li><a href="https://linear.app/mycamper/project/move-nordic-eid-verification-to-after-booking-like-onfido-f8bf0ee5f8e0">Move Nordic eID verification to after booking like Onfido</a></li>
+          </ul>
+        </div>
+
+        <div class="opp">
+          <div class="id">Opportunity 3c.2</div>
+          <div class="title">"I'm filling out the same person twice (or for the wrong person)"</div>
+          <div class="quote">Renters are confused by main-driver vs account-holder, and re-fill the same data every booking.</div>
+          <ul class="projects">
+            <li><a href="https://linear.app/mycamper/project/improve-about-you-step-60c1e4dba230">Improve about-you step</a></li>
+            <li><a href="https://linear.app/mycamper/project/separate-between-main-driver-and-account-on-about-you-c18dec782de6">Separate main driver and account on about-you</a></li>
+            <li><a href="https://linear.app/mycamper/project/main-driver-details-and-additional-driver-1ea9039c5d5a">Main driver details and additional driver</a></li>
+            <li><a href="https://linear.app/mycamper/project/save-dl-to-profile-so-we-about-you-becomes-even-easier-when-booking-6ad8fe91e827">Save DL to profile</a></li>
+            <li><a href="https://linear.app/mycamper/project/make-the-drivers-license-question-clearer-7c1e22c9d4d0">Make the driver's license question clearer</a></li>
+          </ul>
+        </div>
+
+        <div class="opp">
+          <div class="id">Opportunity 3c.3</div>
+          <div class="title">"My country isn't in the list"</div>
+          <div class="quote">Renters from 12 EU countries can't select country of residence. ~50% drop on About-you for international segment.</div>
+          <ul class="projects">
+            <li><a href="https://linear.app/mycamper/project/allowlist-all-eu-countries-for-renters-e8b259f224d8">Allowlist all EU countries for renters</a></li>
+          </ul>
+        </div>
+
+        <div class="subhead">3d. Payment step</div>
+
+        <div class="opp">
+          <div class="id">Opportunity 3d.1</div>
+          <div class="title">"I can't see all my payment options"</div>
+          <div class="quote">"Pay later" is below the fold. Users miss the option that would have unblocked them.</div>
+          <ul class="projects">
+            <li><a href="https://linear.app/mycamper/project/show-all-payment-options-above-the-fold-c8856a432db8">Show all payment options above the fold</a></li>
+          </ul>
+        </div>
+
+        <div class="opp">
+          <div class="id">Opportunity 3d.2</div>
+          <div class="title">"Payment fails and I don't know why"</div>
+          <div class="quote">3D Secure, payment limits, online-purchase locks. We can't know which, but we can prime users.</div>
+          <ul class="projects">
+            <li><a href="https://linear.app/mycamper/project/payment-step-many-users-struggle-with-the-payment-9e099d1bba71">Payment step, many users struggle with the payment</a></li>
+          </ul>
+        </div>
+
+        <div class="opp">
+          <div class="id">Opportunity 3d.3</div>
+          <div class="title">"The cancellation policy makes me anxious right at commit"</div>
+          <div class="quote">Best treated upstream via Opp 2.1 (VDP timeline). BDP timeline is post-booking; impact on this KR is indirect.</div>
+          <ul class="projects">
+            <li><a href="https://linear.app/mycamper/project/timeline-for-booking-in-bdp-c04687f7f390">Timeline for booking in BDP, post-booking</a></li>
+          </ul>
+        </div>
+
+        <div class="subhead">3e. Catch-alls and infrastructure</div>
+
+        <div class="opp">
+          <div class="id">Opportunity 3e.1</div>
+          <div class="title">Misc fixes and the experimentation foundation</div>
+          <div class="quote">Small fixes that don't warrant their own opportunity, plus the feature-flag foundation for clean A/B reads.</div>
+          <ul class="projects">
+            <li><a href="https://linear.app/mycamper/project/misc-booking-flow-improvements-8081285f186e">Misc booking flow improvements</a></li>
+            <li><a href="https://linear.app/mycamper/project/feature-flags-7fd94bc6bdad">Feature flags</a></li>
+          </ul>
+        </div>
+
+      </div>
+    </div>
 
   </div>
+
+  <div class="section">
+    <h3>Strategic questions, not yet projects</h3>
+    <div class="questions">
+      <ol>
+        <li><strong>What should "Buchungsanfrage" actually be?</strong> Binding booking framed as a "request" is a likely root cause of the 17% first-timer CR. Touches pricing, ops load, owner experience, competitive positioning. Highest-leverage first-timer lever, needs a Stef conversation.</li>
+        <li><strong>What does the first-timer booking experience need to look like?</strong> First-timer 17% vs 24% overall, but funnel events don't distinguish first-timers per step. Investing in event tracking may be the prerequisite to every other first-timer experiment.</li>
+      </ol>
+    </div>
+  </div>
+
+  <div class="section">
+    <h3>Explicitly killed / out-of-scope</h3>
+    <div class="killed">
+      <ul>
+        <li><strong>Move "message owner" button next to ATC on VDP.</strong> Rejected. Would push us toward a classified model; we want trust through supply quality plus instant-book, not message-first.</li>
+        <li><strong>BDP additional driver display confusion.</strong> Post-booking only, users already successful.</li>
+      </ul>
+    </div>
+  </div>
+
+  <footer>
+    Source: <a href="https://linear.app/mycamper/initiative/session-to-fbrs-to-052percent-1f69fcd9ec88">Linear initiative, Session to FBRS to 0.52%</a> &middot; auto-refreshed daily
+  </footer>
+
+</div>
 </body>
 </html>
